@@ -2,9 +2,10 @@
 pub struct SelectorProps {
     name: String,
     element_type: String,
-    propertys: Vec<Propertys>,
+    propertys: Vec<Props>,
     select: bool,
 }
+#[warn(unused_imports)]
 enum Pattern {
     //equal
     EQUAL,  
@@ -13,7 +14,8 @@ enum Pattern {
     //regular
     REGULAR, //正则
 }
-pub struct Propertys
+#[warn(unused_imports)]
+pub struct Props
 {
     name: String,
     value: String,
