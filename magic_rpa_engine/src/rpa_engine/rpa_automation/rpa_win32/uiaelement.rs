@@ -1,18 +1,18 @@
 use crate::rpa_engine::rpa_core::rect::MagicRect;
 
+use uiautomation::types::UIProperty; 
 use uiautomation::UIAutomation;
-use uiautomation::UIElement;
+use uiautomation::UIElement; 
 
 use crate::rpa_engine::rpa_automation::rpa_element::RPAElement;
 
-use log::{error, info, warn};
+use log::error;
+use std::collections::HashMap;
 pub struct WinUIAElement {
     pub automation: UIAutomation,
     pub element: UIElement,
 }
-impl WinUIAElement {
-  pub  fn test() {}
-}
+
 impl RPAElement for WinUIAElement {
     fn get_name(&self) -> String {
         match &self.element.get_name() {
@@ -60,7 +60,7 @@ impl RPAElement for WinUIAElement {
     fn get_control_type(&self) -> String {
         match &self.element.get_control_type() {
             Ok(controltype) => {
-                return String::from("");
+                return format!("{:?}", controltype);
             }
             Err(_) => {
                 return String::from("");
@@ -106,11 +106,208 @@ impl RPAElement for WinUIAElement {
     fn event_click(&self) -> bool {
         return bool::from(true);
     }
-    fn get_attribute(&self, attribute_name: &str) -> Vec<String> {
-        return vec![String::from("")];
+    fn get_attributes(&self) -> HashMap<String, String> {
+        let mut map_attributes: HashMap<String, String> = HashMap::new();
+
+        let vec_attributes: Vec<UIProperty> = vec![
+            UIProperty::RuntimeId,
+            UIProperty::BoundingRectangle,
+            UIProperty::ProcessId,
+            UIProperty::ControlType,
+            UIProperty::LocalizedControlType,
+            UIProperty::Name,
+            UIProperty::AcceleratorKey,
+            UIProperty::AccessKey,
+            UIProperty::HasKeyboardFocus,
+            UIProperty::IsKeyboardFocusable,
+            UIProperty::IsEnabled,
+            UIProperty::AutomationId,
+            UIProperty::ClassName,
+            UIProperty::HelpText,
+            UIProperty::ClickablePoint,
+            UIProperty::Culture,
+            UIProperty::IsControlElement,
+            UIProperty::IsContentElement,
+            UIProperty::LabeledBy,
+            UIProperty::IsPassword,
+            UIProperty::NativeWindowHandle,
+            UIProperty::ItemType,
+            UIProperty::IsOffscreen,
+            UIProperty::Orientation,
+            UIProperty::FrameworkId,
+            UIProperty::IsRequiredForForm,
+            UIProperty::ItemStatus,
+            UIProperty::IsDockPatternAvailable,
+            UIProperty::IsExpandCollapsePatternAvailable,
+            UIProperty::IsGridItemPatternAvailable,
+            UIProperty::IsGridPatternAvailable,
+            UIProperty::IsInvokePatternAvailable,
+            UIProperty::IsMultipleViewPatternAvailable,
+            UIProperty::IsRangeValuePatternAvailable,
+            UIProperty::IsScrollPatternAvailable,
+            UIProperty::IsScrollItemPatternAvailable,
+            UIProperty::IsSelectionItemPatternAvailable,
+            UIProperty::IsSelectionPatternAvailable,
+            UIProperty::IsTablePatternAvailable,
+            UIProperty::IsTableItemPatternAvailable,
+            UIProperty::IsTextPatternAvailable,
+            UIProperty::IsTogglePatternAvailable,
+            UIProperty::IsTransformPatternAvailable,
+            UIProperty::IsValuePatternAvailable,
+            UIProperty::IsWindowPatternAvailable,
+            UIProperty::ValueValue,
+            UIProperty::ValueIsReadOnly,
+            UIProperty::RangeValueValue,
+            UIProperty::RangeValueIsReadOnly,
+            UIProperty::RangeValueMinimum,
+            UIProperty::RangeValueMaximum,
+            UIProperty::RangeValueLargeChange,
+            UIProperty::RangeValueSmallChange,
+            UIProperty::ScrollHorizontalScrollPercent,
+            UIProperty::ScrollHorizontalViewSize,
+            UIProperty::ScrollVerticalScrollPercent,
+            UIProperty::ScrollVerticalViewSize,
+            UIProperty::ScrollHorizontallyScrollable,
+            UIProperty::ScrollVerticallyScrollable,
+            UIProperty::SelectionSelection,
+            UIProperty::SelectionCanSelectMultiple,
+            UIProperty::SelectionIsSelectionRequired,
+            UIProperty::GridRowCount,
+            UIProperty::GridColumnCount,
+            UIProperty::GridItemRow,
+            UIProperty::GridItemColumn,
+            UIProperty::GridItemRowSpan,
+            UIProperty::GridItemColumnSpan,
+            UIProperty::GridItemContainingGrid,
+            UIProperty::DockDockPosition,
+            UIProperty::ExpandCollapseExpandCollapseState,
+            UIProperty::MultipleViewCurrentView,
+            UIProperty::MultipleViewSupportedViews,
+            UIProperty::WindowCanMaximize,
+            UIProperty::WindowCanMinimize,
+            UIProperty::WindowWindowVisualState,
+            UIProperty::WindowWindowInteractionState,
+            UIProperty::WindowIsModal,
+            UIProperty::WindowIsTopmost,
+            UIProperty::SelectionItemIsSelected,
+            UIProperty::SelectionItemSelectionContainer,
+            UIProperty::TableRowHeaders,
+            UIProperty::TableColumnHeaders,
+            UIProperty::TableRowOrColumnMajor,
+            UIProperty::TableItemRowHeaderItems,
+            UIProperty::TableItemColumnHeaderItems,
+            UIProperty::ToggleToggleState,
+            UIProperty::TransformCanMove,
+            UIProperty::TransformCanResize,
+            UIProperty::TransformCanRotate,
+            UIProperty::IsLegacyIAccessiblePatternAvailable,
+            UIProperty::LegacyIAccessibleChildId,
+            UIProperty::LegacyIAccessibleName,
+            UIProperty::LegacyIAccessibleValue,
+            UIProperty::LegacyIAccessibleDescription,
+            UIProperty::LegacyIAccessibleRole,
+            UIProperty::LegacyIAccessibleState,
+            UIProperty::LegacyIAccessibleHelp,
+            UIProperty::LegacyIAccessibleKeyboardShortcut,
+            UIProperty::LegacyIAccessibleSelection,
+            UIProperty::LegacyIAccessibleDefaultAction,
+            UIProperty::AriaRole,
+            UIProperty::AriaProperties,
+            UIProperty::IsDataValidForForm,
+            UIProperty::ControllerFor,
+            UIProperty::DescribedBy,
+            UIProperty::FlowsTo,
+            UIProperty::ProviderDescription,
+            UIProperty::IsItemContainerPatternAvailable,
+            UIProperty::IsVirtualizedItemPatternAvailable,
+            UIProperty::IsSynchronizedInputPatternAvailable,
+            UIProperty::OptimizeForVisualContent,
+            UIProperty::IsObjectModelPatternAvailable,
+            UIProperty::AnnotationAnnotationTypeId,
+            UIProperty::AnnotationAnnotationTypeName,
+            UIProperty::AnnotationAuthor,
+            UIProperty::AnnotationDateTime,
+            UIProperty::AnnotationTarget,
+            UIProperty::IsAnnotationPatternAvailable,
+            UIProperty::IsTextPattern2Available,
+            UIProperty::StylesStyleId,
+            UIProperty::StylesStyleName,
+            UIProperty::StylesFillColor,
+            UIProperty::StylesFillPatternStyle,
+            UIProperty::StylesShape,
+            UIProperty::StylesFillPatternColor,
+            UIProperty::StylesExtendedProperties,
+            UIProperty::IsStylesPatternAvailable,
+            UIProperty::IsSpreadsheetPatternAvailable,
+            UIProperty::SpreadsheetItemFormula,
+            UIProperty::SpreadsheetItemAnnotationObjects,
+            UIProperty::SpreadsheetItemAnnotationTypes,
+            UIProperty::IsSpreadsheetItemPatternAvailable,
+            UIProperty::Transform2CanZoom,
+            UIProperty::IsTransformPattern2Available,
+            UIProperty::LiveSetting,
+            UIProperty::IsTextChildPatternAvailable,
+            UIProperty::IsDragPatternAvailable,
+            UIProperty::DragIsGrabbed,
+            UIProperty::DragDropEffect,
+            UIProperty::DragDropEffects,
+            UIProperty::IsDropTargetPatternAvailable,
+            UIProperty::DropTargetDropTargetEffect,
+            UIProperty::DropTargetDropTargetEffects,
+            UIProperty::DragGrabbedItems,
+            UIProperty::Transform2ZoomLevel,
+            UIProperty::Transform2ZoomMinimum,
+            UIProperty::Transform2ZoomMaximum,
+            UIProperty::FlowsFrom,
+            UIProperty::IsTextEditPatternAvailable,
+            UIProperty::IsPeripheral,
+            UIProperty::IsCustomNavigationPatternAvailable,
+            UIProperty::PositionInSet,
+            UIProperty::SizeOfSet,
+            UIProperty::Level,
+            UIProperty::AnnotationTypes,
+            UIProperty::AnnotationObjects,
+            UIProperty::LandmarkType,
+            UIProperty::LocalizedLandmarkType,
+            UIProperty::FullDescription,
+            UIProperty::FillColor,
+            UIProperty::OutlineColor,
+            UIProperty::FillType,
+            UIProperty::VisualEffects,
+            UIProperty::OutlineThickness,
+            UIProperty::CenterPoint,
+            UIProperty::Rotation,
+            UIProperty::Size,
+            UIProperty::IsSelectionPattern2Available,
+            UIProperty::Selection2FirstSelectedItem,
+            UIProperty::Selection2LastSelectedItem,
+            UIProperty::Selection2CurrentSelectedItem,
+            UIProperty::Selection2ItemCount,
+            UIProperty::HeadingLevel,
+            UIProperty::IsDialog,
+        ];
+
+        for _item in vec_attributes {
+            match self.element.get_property_value(_item) {
+                Ok(_value) => {
+                    if _value.is_string() && !_value.is_null() {
+                        let v = _value.get_string().unwrap();
+                        if v != "" {
+                            map_attributes
+                                .insert(format!("{:?}", _item), _value.get_string().unwrap());
+                        }
+                    }
+                }
+                Err(_) => {}
+            }
+        }
+        return map_attributes;
     }
-    fn set_attribute(&self, attribute_name: &str) -> Vec<String> {
-        return vec![String::from("")];
+    fn get_attribute(&self, attribute_name: &str) -> String {
+        return String::from("");
+    }
+    fn set_attribute(&self, attribute_name: &str, attribute_value: &str) -> bool {
+        return true;
     }
 
     fn get_parent(&self) -> Box<dyn RPAElement> {

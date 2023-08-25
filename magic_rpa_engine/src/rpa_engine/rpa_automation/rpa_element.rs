@@ -1,7 +1,6 @@
 use crate::rpa_engine::rpa_core::rect::MagicRect;
-
+use std::collections::HashMap;
 pub trait RPAElement {
-    
     fn get_name(&self) -> String;
     fn get_classname(&self) -> String;
     fn get_bounding_rectangle(&self) -> MagicRect;
@@ -19,8 +18,9 @@ pub trait RPAElement {
     fn get_select(&self) -> Vec<String>;
     fn set_select(&self) -> Vec<String>;
     fn event_click(&self) -> bool;
-    fn get_attribute(&self, attribute_name: &str) -> Vec<String>;
-    fn set_attribute(&self, attribute_name: &str) -> Vec<String>;
+    fn get_attributes(&self) -> HashMap<String, String>;
+    fn get_attribute(&self, attribute_name: &str) -> String;
+    fn set_attribute(&self, attribute_name: &str,attribute_value: &str) -> bool;
 
     fn get_parent(&self) -> Box<dyn RPAElement>;
     fn get_children(&self) -> Vec<Box<dyn RPAElement>>;

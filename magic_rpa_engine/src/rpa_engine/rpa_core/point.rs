@@ -1,11 +1,12 @@
 use super::pinvoke;
 
 extern crate winapi;
-#[warn(dead_code)]
+
 pub struct MagicPoint {
     pub x: i32,
     pub y: i32,
 }
+
 impl MagicPoint {
     pub fn new(x: i32, y: i32) -> MagicPoint {
         return MagicPoint { x: x, y: y };

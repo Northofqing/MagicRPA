@@ -1,11 +1,11 @@
 use crate::rpa_engine;
-#[warn(dead_code)]
 pub struct MagicRect {
     pub x: i32,
     pub y: i32,
     pub width: i32,
     pub height: i32,
 }
+
 impl MagicRect {
     pub fn get_rect(rect: &uiautomation::types::Rect) -> MagicRect {
         return MagicRect {

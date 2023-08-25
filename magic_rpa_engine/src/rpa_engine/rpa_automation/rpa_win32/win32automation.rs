@@ -1,4 +1,5 @@
 use crate::rpa_engine::rpa_automation::rpa_element::RPAElement;
+use crate::rpa_engine::rpa_automation::rpa_enum::targeFramework;
 use crate::rpa_engine::rpa_automation::rpa_trace::RPATrace;
 use crate::rpa_engine::rpa_common::selector::SelectorProps;
 use crate::rpa_engine::rpa_core::handle::MagicHandle;
@@ -8,21 +9,28 @@ use uiautomation::UIAutomation;
 
 use super::uiaelement::WinUIAElement;
 
-mod magic_uia_element {
-    pub use crate::rpa_engine::rpa_automation::rpa_win32::uiaelement;
-    pub use crate::rpa_engine::rpa_automation::rpa_win32::win32automation;
-}
-
-#[derive(Debug)]
 pub struct Win32Automation {
     pub automation: UIAutomation,
+    pub target_framework: targeFramework,
 }
 
+impl Win32Automation {
+    pub fn build_selector(name: String) {}
+    pub fn build_props() {}
+    pub fn enable_msaa() {}
+    // pub fn IsChromiumFrameWork() -> bool {
+    //     let _className = chromiumWin.ClassName;
+    //     return _className.Contains("RenderWidgetHostHWND")
+    //         || _className.Contains("WidgetWin")
+    //         || _className.Contains("Intermediate D3D Window");
+    // }
+}
 impl RPATrace for Win32Automation {
     fn is_match(&self) -> bool {
         return bool::from(true);
     }
-    fn trace_element_point(&self, point: MagicPoint) -> Box<dyn RPAElement> {
+    fn trace_element_point(&mut self, point: MagicPoint) -> Box<dyn RPAElement> {
+        self.target_framework = targeFramework::msaa;
         let uia_point = Point::new(point.x, point.y);
         let mut ele = match self.automation.element_from_point(uia_point) {
             Ok(element) => element,
@@ -37,24 +45,20 @@ impl RPATrace for Win32Automation {
             automation: self.automation.clone(),
             element: ele,
         };
-        WinUIAElement::test();
         let result = WinUIAElement::get_children(&win_uia_element);
-        let len = result.len();
-        if len > 1 {
-            for element in result {
-                let rect = element.get_bounding_rectangle();
-                let point = MagicPoint::get_cursor_pos();
-                if rect.contain(point) {
-                    ele = match self.automation.element_from_point(uia_point) {
-                        Ok(element) => element,
-                        Err(_) => continue,
-                    };
-                    win_uia_element = WinUIAElement {
-                        automation: self.automation.clone(),
-                        element: ele,
-                    };
-                    return Box::new(win_uia_element);
-                }
+
+        for element in result {
+            let rect = element.get_bounding_rectangle();
+            let point = MagicPoint::get_cursor_pos();
+            if rect.contain(point) {
+                ele = match self.automation.element_from_point(uia_point) {
+                    Ok(element) => element,
+                    Err(_) => continue,
+                };
+                win_uia_element = WinUIAElement {
+                    automation: self.automation.clone(),
+                    element: ele,
+                };
             }
         }
         return Box::new(win_uia_element);
@@ -122,8 +126,10 @@ impl RPATrace for Win32Automation {
     //     return result;
     // }
     fn build_selector(&self, element: Box<dyn RPAElement>) -> Vec<SelectorProps> {
-        let selectors: Vec<SelectorProps> = Vec::new(); 
-        loop {}
+        let selectors: Vec<SelectorProps> = Vec::new();
+        loop {
+            break;
+        }
 
         return selectors;
     }

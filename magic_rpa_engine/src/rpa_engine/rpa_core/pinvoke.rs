@@ -1,5 +1,6 @@
 extern crate winapi;
 use winapi::shared::windef::{HWND, POINT};
+
 pub fn window_from_point() -> HWND {
     use winapi::um::winuser::WindowFromPoint;
     let pt = POINT { x: -1, y: -1 };

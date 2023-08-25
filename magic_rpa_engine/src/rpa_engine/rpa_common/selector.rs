@@ -1,11 +1,13 @@
-#[warn(unused_imports)]
+#[allow(dead_code)]
+#[allow(unused_variables)]
 pub struct SelectorProps {
     name: String,
     element_type: String,
     propertys: Vec<Props>,
     select: bool,
 }
-#[warn(unused_imports)]
+#[allow(dead_code)]
+#[allow(unused_variables)]
 enum Pattern {
     //equal
     EQUAL,  
@@ -14,7 +16,8 @@ enum Pattern {
     //regular
     REGULAR, //正则
 }
-#[warn(unused_imports)]
+#[allow(dead_code)]
+#[allow(unused_variables)]
 pub struct Props
 {
     name: String,

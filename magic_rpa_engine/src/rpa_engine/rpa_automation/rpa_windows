@@ -1,0 +1,12 @@
+use windows::Win32::Foundation::HWND;
+pub struct RPAWindows {
+    pub hwnd: HWND,
+}
+impl RPAWindows {
+    fn new(_hwnd: HWND) -> RPAWindows {
+        RPAWindows { hwnd: _hwnd };
+    }
+    fn get_windows()-> WinUIAElement{
+
+    }
+}

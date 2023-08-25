@@ -1,10 +1,10 @@
 pub mod rpa_core {
+    pub mod handle;
     pub mod pinvoke;
     pub mod point;
-    pub mod handle;
     pub mod rect;
 }
-pub mod rpa_common{
+pub mod rpa_common {
     pub mod selector;
 }
 
