@@ -2,7 +2,7 @@
 name = "magic_rpa_egine"
 version = "1.1.0"
 edition = "2021"
-keywords = ["rpa"]
+keywords = ["rpa","uiautomation","windows","java"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -10,12 +10,12 @@ keywords = ["rpa"]
 winapi = { version = "0.3", features = ["winuser"] }
 
 [dependencies]
-sysinfo = "0.29.8"
+sysinfo = "0.29.10"
 uiautomation = "0.6.1"
 log="0.4.20"  
 env_logger="0.10.0"
-strum = "0.25"
-strum_macros = "0.25.2"
+rand = "0.8.5"
+web-view = "0.7" 
 
 [dependencies.windows]
 version = "0.51.1"

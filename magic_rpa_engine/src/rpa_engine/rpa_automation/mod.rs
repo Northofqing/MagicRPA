@@ -11,3 +11,4 @@ pub mod rpa_trace;
 pub mod rpa_element;
 pub mod rpa_element_action;
 pub mod rpa_enum;
+pub mod win32_component;

@@ -1,7 +1,7 @@
-
-pub enum targeFramework
+#[derive(Debug)]
+pub enum TargeFramework
 {
-    uia,
-    msaa,
-    java,
+    UIA,
+    MSAA,
+    JAVA,
 }

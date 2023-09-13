@@ -7,14 +7,14 @@ pub struct MagicRect {
 }
 
 impl MagicRect {
-    pub fn get_rect(rect: &uiautomation::types::Rect) -> MagicRect {
-        return MagicRect {
-            x: rect.get_left(),
-            y: rect.get_top(),
-            width: rect.get_right() - rect.get_left(),
-            height: rect.get_bottom() - rect.get_top(),
-        };
-    }
+    // pub fn get_rect(rect: &uiautomation::types::Rect) -> MagicRect {
+    //     return MagicRect {
+    //         x: rect.get_left(),
+    //         y: rect.get_top(),
+    //         width: rect.get_right() - rect.get_left(),
+    //         height: rect.get_bottom() - rect.get_top(),
+    //     };
+    // }
     pub fn contain(&self, point: rpa_engine::rpa_core::point::MagicPoint) -> bool {
         if self.x >= point.x
             && self.y >= point.y
@@ -26,7 +26,7 @@ impl MagicRect {
             return false;
         }
     }
-    pub fn area(&self) -> i32 {
-        return self.width * self.height;
-    }
+    // pub fn area(&self) -> i32 {
+    //     return self.width * self.height;
+    // }
 }
