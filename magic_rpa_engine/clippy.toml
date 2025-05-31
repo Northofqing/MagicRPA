@@ -1,0 +1,6 @@
+# https://mp.weixin.qq.com/s/y_YSZKp9sNd2JoKQ-xlTEQ
+# 设置复杂度阈值
+cyclomatic-complexity-threshold = 15
+
+# 允许的模块嵌套深度
+module-nesting-depth = 3

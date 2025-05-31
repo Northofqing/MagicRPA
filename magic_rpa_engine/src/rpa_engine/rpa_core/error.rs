@@ -1,6 +1,6 @@
 use core::fmt::Display;
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq,Clone)]
 pub struct Error {
     code: i32,
     message: String,

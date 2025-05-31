@@ -1,10 +1,16 @@
+
+
 pub mod rpa_core {
+    pub mod accessible_info;
+    pub mod error;
     pub mod handle;
     pub mod pinvoke;
     pub mod point;
     pub mod rect;
-    pub mod error;
     pub mod result;
+    pub mod rpa_enum;
+    pub mod user32x;
+    pub mod user32plus;
 }
 pub mod rpa_common {
     pub mod selector;

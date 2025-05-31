@@ -1,17 +1,17 @@
 #[derive(Debug)]
-pub struct SelectorProps {
+pub struct Selector {
     name: String,
     control_type: String,
     propertys: Vec<Props>,
     select: bool,
 }
-impl SelectorProps {
+impl Selector {
     pub fn new(
         _name: String,
         _control_type: String,
         _propertys: Vec<Props>,
         _select: bool,
-    ) -> SelectorProps {
+    ) -> Selector {
         Self {
             name: _name,
             control_type: _control_type,
@@ -25,7 +25,7 @@ pub enum Pattern {
     //equal
     EQUAL,
     //contain
-    CONTAIN,
+    COMagicAIN,
     //regular
     REGULAR, //正则
 }

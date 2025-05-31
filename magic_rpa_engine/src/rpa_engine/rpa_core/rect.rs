@@ -1,4 +1,7 @@
 use crate::rpa_engine;
+
+use super::point::MagicPoint;
+#[derive(Debug)]
 pub struct MagicRect {
     pub x: i32,
     pub y: i32,
@@ -7,6 +10,14 @@ pub struct MagicRect {
 }
 
 impl MagicRect {
+    pub fn new(x: i32, y: i32, width: i32, height: i32) -> MagicRect {
+        return MagicRect {
+            x: x,
+            y: y,
+            width: width,
+            height: height,
+        };
+    }
     // pub fn get_rect(rect: &uiautomation::types::Rect) -> MagicRect {
     //     return MagicRect {
     //         x: rect.get_left(),
@@ -16,8 +27,8 @@ impl MagicRect {
     //     };
     // }
     pub fn contain(&self, point: rpa_engine::rpa_core::point::MagicPoint) -> bool {
-        if self.x >= point.x
-            && self.y >= point.y
+        if self.x <= point.x
+            && self.y <= point.y
             && self.x + self.width >= point.x
             && self.y + self.height >= point.y
         {
@@ -26,7 +37,10 @@ impl MagicRect {
             return false;
         }
     }
-    // pub fn area(&self) -> i32 {
-    //     return self.width * self.height;
-    // }
+    pub fn center(&self) -> MagicPoint {
+        MagicPoint::new(&self.x + &self.width / 2, &self.y + &self.height / 2)
+    }
+    pub fn area(&self) -> i32 {
+        return self.width * self.height;
+    }
 }

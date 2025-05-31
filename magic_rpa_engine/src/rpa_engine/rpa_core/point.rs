@@ -1,18 +1,16 @@
 use super::pinvoke;
-
-extern crate winapi;
-
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct MagicPoint {
     pub x: i32,
     pub y: i32,
 }
 
 impl MagicPoint {
-    // pub fn new(x: i32, y: i32) -> MagicPoint {
-    //     return MagicPoint { x: x, y: y };
-    // }
+    pub fn new(x: i32, y: i32) -> MagicPoint {
+        return MagicPoint { x: x, y: y };
+    }
     pub fn get_cursor_pos() -> MagicPoint {
-        let _point = pinvoke::get_cursor_pos();
+        let _point = pinvoke::get_cursor_position();
         let _result = _point.unwrap();
         return MagicPoint {
             x: _result.0,

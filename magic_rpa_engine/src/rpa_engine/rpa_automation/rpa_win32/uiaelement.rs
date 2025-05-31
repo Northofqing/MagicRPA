@@ -1,3 +1,6 @@
+use crate::rpa_engine::rpa_core::handle;
+use crate::rpa_engine::rpa_core::handle::MagicHandle;
+use crate::rpa_engine::rpa_core::point::MagicPoint;
 use crate::rpa_engine::rpa_core::rect::MagicRect;
 
 use crate::rpa_engine::rpa_automation::rpa_element::Element;
@@ -8,8 +11,8 @@ use uiautomation::UIElement;
 use log::error;
 use std::collections::HashMap;
 
+use crate::rpa_engine::rpa_automation::rpa_win32::uia_helper::UIAHelper;
 use crate::rpa_engine::rpa_core::error::Result;
-
 #[derive(Debug, Clone)]
 pub struct WinUIAElement {
     automation: UIAutomation,
@@ -21,6 +24,22 @@ impl WinUIAElement {
         Self {
             automation: automation.clone(),
             element: automation.get_root_element().unwrap(),
+        }
+    
+    }pub fn from_point(magic_point: MagicPoint) -> WinUIAElement {
+        let uiahelper = UIAHelper::new();
+        let handle_element = uiahelper.element_from_point(magic_point);
+        WinUIAElement {
+            automation: uiahelper.automation,
+            element: handle_element,
+        }
+    }
+    pub fn from_handle(magic_handle: MagicHandle) -> WinUIAElement {
+        let uiahelper = UIAHelper::new();
+        let handle_element = uiahelper.element_from_handle(magic_handle);
+        WinUIAElement {
+            automation: uiahelper.automation,
+            element: handle_element,
         }
     }
     pub fn update_element(element: UIElement) -> WinUIAElement {

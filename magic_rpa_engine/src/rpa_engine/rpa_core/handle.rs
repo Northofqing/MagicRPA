@@ -4,7 +4,10 @@ pub struct MagicHandle {
     pub hwnd: HWND,
 }
 impl MagicHandle {
-    pub fn from(&self) -> Handle {
-        return Handle::from(self.hwnd);
+    pub fn new(hwnd: HWND) -> MagicHandle {
+        Self { hwnd: hwnd }
+    }
+    pub fn default(&self) -> Handle {
+        return Handle::default();
     }
 }
